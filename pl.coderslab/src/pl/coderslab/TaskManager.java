@@ -3,7 +3,6 @@ package pl.coderslab;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +16,8 @@ import java.util.Scanner;
 public class TaskManager {
 
     public static Scanner scan = new Scanner(System.in);
+    static String[][] tasks = downloadDataFromFile();
+
 
     public static void showMenu() {
         System.out.println();
@@ -26,11 +27,10 @@ public class TaskManager {
         for (String eachLine : menu) {
             System.out.println(ConsoleColors.RESET + eachLine);
         }
-
     }
 
-    public static void addTask() {
 
+    public static void addTask() {
         System.out.println("Please add task description");
         String taskDescription = scan.nextLine();
         System.out.println("Please add task due date: YYYY-MM-DD");
@@ -44,8 +44,8 @@ public class TaskManager {
         tasks[tasks.length - 1][0] = taskDescription;
         tasks[tasks.length - 1][1] = taskDueDate;
         tasks[tasks.length - 1][2] = taskImportant;
-
     }
+
 
     public static String getInt() {
         while (!scan.hasNextInt()) {
@@ -55,8 +55,8 @@ public class TaskManager {
         return scan.nextLine();
     }
 
-    public static void removeTask() {
 
+    public static void removeTask() {
         System.out.println("Please select number to remove.");
         try {
             int indexToRemove = Integer.parseInt(getInt());
@@ -67,11 +67,10 @@ public class TaskManager {
         } catch (NumberFormatException ex) {
             System.out.println("Incorrect value provided. Please give number within range of the list.");
         }
-
     }
 
-    public static void exitProgram() {
 
+    public static void exitProgram() {
         System.out.println("exit");
         Path filePath = Paths.get("./tasks.csv");
 
@@ -89,11 +88,10 @@ public class TaskManager {
         }
 
         System.out.println(ConsoleColors.RED + "Bye, bye.");
-
     }
 
-    public static void showList() {
 
+    public static void showList() {
         System.out.println("list");
         for (int i = 0; i < tasks.length; i++) {
             System.out.print(i + " : ");
@@ -102,11 +100,11 @@ public class TaskManager {
             }
             System.out.println();
         }
-
     }
 
-    public static void readingTasksFile() {
 
+//  Below method is not used in program. It's provided here just in case user wants to read the file:
+    public static void readingTasksFile() {
         Path filePath = Paths.get("./tasks.csv");
         try {
             for (String line : Files.readAllLines(filePath)) {
@@ -117,12 +115,11 @@ public class TaskManager {
         }
     }
 
-    public static String[][] downloadDataFromFile() {
 
+    public static String[][] downloadDataFromFile() {
         Path filePath = Paths.get("./tasks.csv");
         int linesCount = 0;
 
-//      Liczy ile linii ma plik:
         try {
             for (String line : Files.readAllLines(filePath)) {
                 linesCount++;
@@ -131,7 +128,6 @@ public class TaskManager {
             e.printStackTrace();
         }
 
-//      Tworzy tablicę z elementami z pliku:
         String[][] tasks = new String[linesCount][];
         int i = 0;
 
@@ -140,7 +136,6 @@ public class TaskManager {
                 tasks[i] = row.split(",");
                 i++;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,7 +143,6 @@ public class TaskManager {
         return tasks;
     }
 
-    static String[][] tasks = downloadDataFromFile();
 
     public static void main(String[] args) {
 
@@ -175,10 +169,8 @@ public class TaskManager {
 
             showMenu();
             input = scan.nextLine();
-
         }
 
         exitProgram();
-
     }
 }
