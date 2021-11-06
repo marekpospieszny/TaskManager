@@ -33,10 +33,49 @@ public class TaskManager {
     public static void addTask() {
         System.out.println("Please add task description");
         String taskDescription = scan.nextLine();
-        System.out.println("Please add task due date: YYYY-MM-DD");
-        String taskDueDate = scan.nextLine();
-        System.out.println("Is your task important: true/false");
-        String taskImportant = scan.nextLine();
+        String taskDueDate = "";
+        while (true) {
+            try {
+                if (taskDueDate.length() == 10) {
+                    String[] dateParts = taskDueDate.split("-");
+                    if (Integer.parseInt(dateParts[0]) >= 2020 &&
+                            Integer.parseInt(dateParts[1]) > 0 && Integer.parseInt(dateParts[1]) <= 12 &&
+                            Integer.parseInt(dateParts[2]) > 0 && Integer.parseInt(dateParts[2]) <= 31) {
+                        if (Integer.parseInt(dateParts[1]) == 2 && Integer.parseInt(dateParts[2]) > 28) {
+                            System.out.println(ConsoleColors.RED + "Incorrect month and/or day value provided.");
+                            System.out.println(ConsoleColors.RESET + "Please add task due date: YYYY-MM-DD");
+                            taskDueDate = scan.nextLine();
+                        } else {
+                            break;
+                        }
+                    } else {
+                        System.out.println(ConsoleColors.RED + "Incorrect year, month or day value provided.");
+                        System.out.println(ConsoleColors.RESET + "Please add task due date: YYYY-MM-DD");
+                        taskDueDate = scan.nextLine();
+                    }
+                } else {
+                    System.out.println("Please add task due date: YYYY-MM-DD");
+                    taskDueDate = scan.nextLine();
+                }
+            } catch (ArrayIndexOutOfBoundsException e1) {
+                System.out.println(ConsoleColors.RED + "Incorrect date format provided.");
+                System.out.println(ConsoleColors.RESET + "Please add task due date: YYYY-MM-DD");
+                taskDueDate = scan.nextLine();
+            } catch (NumberFormatException e2) {
+                System.out.println(ConsoleColors.RED + "Incorrect date format provided.");
+                System.out.println(ConsoleColors.RESET + "Please add task due date: YYYY-MM-DD");
+                taskDueDate = scan.nextLine();
+            }
+        }
+        String taskImportant = "";
+        while (true) {
+            if ("true".equals(taskImportant) || "false".equals(taskImportant)) {
+                break;
+            } else {
+                System.out.println("Is your task important: true/false");
+                taskImportant = scan.nextLine();
+            }
+        }
 
         tasks = Arrays.copyOf(tasks, tasks.length + 1);
         tasks[tasks.length - 1] = new String[3];
@@ -57,15 +96,20 @@ public class TaskManager {
 
 
     public static void removeTask() {
-        System.out.println("Please select number to remove.");
-        try {
-            int indexToRemove = Integer.parseInt(getInt());
-            tasks = ArrayUtils.remove(tasks, indexToRemove);
-            System.out.println("Value was successfully deleted.");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Incorrect value provided. Please give number within range of the list.");
-        } catch (NumberFormatException ex) {
-            System.out.println("Incorrect value provided. Please give number within range of the list.");
+
+        String anotherLineToRemove = "yes";
+        while ("yes".equals(anotherLineToRemove)) {
+            try {
+                System.out.println("Please select number to remove.");
+                int indexToRemove = Integer.parseInt(getInt());
+                tasks = ArrayUtils.remove(tasks, indexToRemove);
+                System.out.println("Value was successfully deleted. Do you want to remove another number: yes/no ?");
+                anotherLineToRemove = scan.nextLine();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Incorrect value provided. Please give number within range of the list.");
+            } catch (NumberFormatException ex) {
+                System.out.println("Incorrect value provided. Please give number within range of the list.");
+            }
         }
     }
 
