@@ -15,13 +15,13 @@ import java.util.Scanner;
 
 public class TaskManager {
 
+    public static Path filePath = Paths.get("./tasks.csv");
+    public static String[][] tasks = downloadDataFromFile();
     public static Scanner scan = new Scanner(System.in);
-    static String[][] tasks = downloadDataFromFile();
 
 
     public static void showMenu() {
-        System.out.println();
-        System.out.println(ConsoleColors.BLUE + "Please select an option:");
+        System.out.println(ConsoleColors.BLUE + "\n" + "Please select an option:");
 
         String[] menu = {"add", "remove", "list", "exit"};
         for (String eachLine : menu) {
@@ -72,7 +72,6 @@ public class TaskManager {
 
     public static void exitProgram() {
         System.out.println("exit");
-        Path filePath = Paths.get("./tasks.csv");
 
         try {
             PrintWriter writer = new PrintWriter("./tasks.csv");
@@ -105,7 +104,6 @@ public class TaskManager {
 
 //  Below method is not used in program. It's provided here just in case user wants to read the file:
     public static void readingTasksFile() {
-        Path filePath = Paths.get("./tasks.csv");
         try {
             for (String line : Files.readAllLines(filePath)) {
                 System.out.println(line);
@@ -117,7 +115,6 @@ public class TaskManager {
 
 
     public static String[][] downloadDataFromFile() {
-        Path filePath = Paths.get("./tasks.csv");
         int linesCount = 0;
 
         try {
