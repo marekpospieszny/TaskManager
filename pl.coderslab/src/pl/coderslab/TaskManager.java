@@ -22,7 +22,6 @@ public class TaskManager {
 
     public static void showMenu() {
         System.out.println(ConsoleColors.BLUE + "\n" + "Please select an option:");
-
         String[] menu = {"add", "remove", "list", "exit"};
         for (String eachLine : menu) {
             System.out.println(ConsoleColors.RESET + eachLine);
@@ -96,7 +95,6 @@ public class TaskManager {
 
 
     public static void removeTask() {
-
         String anotherLineToRemove = "yes";
         while ("yes".equals(anotherLineToRemove)) {
             try {
@@ -116,17 +114,14 @@ public class TaskManager {
 
     public static void exitProgram() {
         System.out.println("exit");
-
-        try {
-            PrintWriter writer = new PrintWriter("./tasks.csv");
-            writer.print("");
-            writer.close();
+        try (PrintWriter writer = new PrintWriter("./tasks.csv")) {
+//            writer.print("");
+//            writer.close();
             for (String[] row : tasks) {
-                Files.writeString(filePath, StringUtils.join(row, ",") + "\n", StandardOpenOption.APPEND);
+//                Files.writeString(filePath, StringUtils.join(row, ",") + "\n", StandardOpenOption.APPEND);
+                writer.print(StringUtils.join(row, ",") + "\n");
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -160,7 +155,6 @@ public class TaskManager {
 
     public static String[][] downloadDataFromFile() {
         int linesCount = 0;
-
         try {
             for (String line : Files.readAllLines(filePath)) {
                 linesCount++;
@@ -171,7 +165,6 @@ public class TaskManager {
 
         String[][] tasks = new String[linesCount][];
         int i = 0;
-
         try {
             for (String row : Files.readAllLines(filePath)) {
                 tasks[i] = row.split(",");
@@ -201,8 +194,6 @@ public class TaskManager {
                     break;
                 case "list":
                     showList();
-                    break;
-                case "exit":
                     break;
                 default:
                     System.out.println("Please select a correct option.");
