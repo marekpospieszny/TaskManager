@@ -1,33 +1,26 @@
 # Console TaskManager
 Simple console program to manage tasks
 
-****Marek Pośpieszny
-Projekt ma na celu ugruntowanie wiedzy zdobytej podczas 4 dni zajęć grupowych.
+**Technology**
+Project scope is to verify and train knowledge gained after 4 days of Java course classes.
+Technology used is Java.
 
-Technologia używana w ramach projektu to język Java.
-
-****Wstęp
-Celem projektu jest wytworzenie programu konsolowego do zarządzania zadaniami: Tasks.
-
-Dane do zasilenia naszego programu będziemy przechowywać w pliku tekstowym w formacie CSV.
-
-Będą one miały następujący format:
+**Application description**
+Goal of the project was to create simple console program to manage tasks.
+Data to load into application is held in csv file.
+Format of csv file is following:
 
 Simple task - very important, 2020-03-09, true
-
 Second task not so important, 2020-05-10, false
-
 Throw away trash, 2020-03-09, false
 
-****Aplikacja
-Posiadać musi następujące funkcje:
+**Functionalities:**
+- load all tasks from file while application is turned on,
+- add new task,
+- remove selected task,
+- list all available tasks,
+- exit application,
+- save all changes in tasks to file while app is turned off,
+- make simple validations of provided data (for example if date format is as required).
 
-wyświetlanie wszystkich dostępnych zadań,
-wyjście z aplikacji,
-dodanie zadania,
-usuwanie zadania,
-wczytywanie danych z pliku przy starcie aplikacji,
-zapis danych do pliku,
-sprawdzanie poprawność wartości liczbowej podczas usuwania.
-
-__Aplikacja ma możliwość wpisywania komend i wykonywania odpowiednich operacji w zależności od komendy, która została wpisana.
+__Application allows users to provide predifined commands. Each command will trigger specific action. 
