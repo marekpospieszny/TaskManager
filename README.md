@@ -2,10 +2,12 @@
 Simple console program to manage tasks
 
 **Technology**
+
 Project scope is to verify and train knowledge gained after 4 days of Java course classes.
 Technology used is Java.
 
 **Application description**
+
 Goal of the project was to create simple console program to manage tasks.
 Data to load into application is held in csv file.
 Format of csv file is following:
