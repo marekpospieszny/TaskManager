@@ -25,4 +25,4 @@ Format of csv file is following:
 - save all changes in tasks to file while app is turned off,
 - make simple validations of provided data (for example if date format is as required).
 
-**Application allows users to provide predifined commands. Each command will trigger specific action.**
+**Application allows users to provide predefined commands. Each command will trigger specific action.**
